@@ -20,19 +20,19 @@ app.use(cors());
 //  remove X-Powered-By to for security and saving bandwith
 app.disable("x-powered-by");
 
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 // init session
-app.use(session({
-  secret: sessionSecret,
-  resave: false,
-  saveUninitialized: true,
-  cookie: { maxAge: 60 * 60 * 1000 } // 1 hour
-}));
+// app.use(session({
+//   secret: sessionSecret,
+//   resave: false,
+//   saveUninitialized: true,
+//   cookie: { maxAge: 60 * 60 * 1000 } // 1 hour
+// }));
 
 // health route
-app.use("/", (req, res) => res.send("Expense tracker v1"));
+app.use("/health", (req, res) => res.send("Expense tracker v1"));
 app.use("/be/api/v1", UserRoutes);
 
 module.exports = {
