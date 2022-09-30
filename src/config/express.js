@@ -1,7 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
-const { sessionSecret } = require("./variables");
+
+const UserRoutes = require("../routes/user-routes");
 
 const app = express();
 app.use(express.json());
