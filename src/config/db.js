@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { mongo, env } = require("./variables");
+const { logger } = require("./winston");
 
 exports.connect = () => {
   mongoose
@@ -9,7 +10,7 @@ exports.connect = () => {
       useUnifiedTopology: true,
       autoIndex: true,
     })
-    .then(() => console.log("Database connected..."))
-    .catch((error) => console.error(error));
+    .then(() => logger.info("Database connected..."))
+    .catch((error) => logger.error(error));
   return mongoose.connection;
 };

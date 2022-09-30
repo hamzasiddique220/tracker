@@ -55,7 +55,7 @@ const registerNewUser = async (req, res) => {
             }
         );
     } catch (err) {
-        console.error(err);
+        logger.error(err);
         return res
             .status(400)
             .json({ status: false, msg: "Error while registering user" });
@@ -102,7 +102,7 @@ const loginUser = async (req, res) => {
             }
         );
     } catch (err) {
-        console.error(err);
+        logger.error(err);
         return res
             .status(400)
             .json({ status: false, msg: "Error while loggin in user" });
