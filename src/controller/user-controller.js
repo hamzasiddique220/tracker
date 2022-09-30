@@ -61,7 +61,6 @@ const registerNewUser = async (req, res) => {
             .json({ status: false, msg: "Error while registering user" });
     }
 };
-
 const loginUser = async (req, res) => {
     const { email, password, phone } = req.body;
 
