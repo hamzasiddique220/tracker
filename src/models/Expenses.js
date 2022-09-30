@@ -1,6 +1,7 @@
 
 
 const mongoose = require("mongoose");
+const Users = require("./Users")
 
 const Expenses = new mongoose.Schema(
   {
@@ -13,6 +14,12 @@ const Expenses = new mongoose.Schema(
     category: {
       type: String,
     },
+    user: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: Users,
+      },
+    ],
   },
   {
     timestamps: true,
