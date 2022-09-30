@@ -6,6 +6,11 @@ const passport = require('passport');  // authentication
 const { sessionSecret } = require("./variables");
 
 const UserRoutes = require("../routes/user-routes");
+const UserCategories = require("../routes/categories-routes");
+const UserExpense = require("../routes/expense-routes");
+const UserIncome = require("../routes/income-routes");
+const UserSource = require("../routes/source-routes");
+
 
 const app = express();
 app.use(express.json());
@@ -34,6 +39,11 @@ app.disable("x-powered-by");
 // health route
 app.use("/health", (req, res) => res.send("Expense tracker v1"));
 app.use("/be/api/v1", UserRoutes);
+app.use("/be/api/v1", UserCategories);
+app.use("/be/api/v1", UserExpense);
+app.use("/be/api/v1", UserIncome);
+app.use("/be/api/v1", UserSource);
+
 
 module.exports = {
     app,

@@ -21,8 +21,8 @@ const registerNewUser = async (req, res) => {
             password,
             country,
             date_of_birth,
-            phone: phone ?? 0,
-            gender: gender ?? "Other",
+            phone,
+            gender,
         });
         const salt = await bcrypt.genSalt(14);
         user.password = await bcrypt.hash(password, salt);
