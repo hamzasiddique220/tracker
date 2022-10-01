@@ -2,6 +2,7 @@ const Users = require("../models/Users");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { jwtSecret, jwtExpirationInterval } = require("../config/variables");
+require('../middleware/passport')
 
 genToken = user => {
   return jwt.sign({
@@ -12,7 +13,7 @@ genToken = user => {
   }, jwtSecret);
 }
 const registerNewUser = async (req, res) => {
-    const { name, email, password, phone, country, date_of_birth, gender } =
+    const { name, email, password, phone, country, date_of_birth, gender,role } =
       req.body;
     try {
       // Check if a user exists
@@ -31,6 +32,7 @@ const registerNewUser = async (req, res) => {
         date_of_birth,
         phone,
         gender,
+        role,
       });
       const salt = await bcrypt.genSalt(14);
       user.password = await bcrypt.hash(password, salt);
@@ -104,8 +106,37 @@ const loginUser = async (req, res) => {
     }
 };
 
+const getAllUsers = async (req, res) => {
+  try {
+    const { id ,role} = req.user;
+
+    if (!id) {
+      return res.status(200).json({ status: false, msg: "Invalid Id" });
+    }
+    if(role !=='admin'){
+      return res.status(200).json({ status: false, msg: "you are not authorized" });
+
+    }
+
+
+    const users = await Users.find().lean();
+
+    return res.status(200).json({
+      status: true,
+      msg: "users fetched successfully",
+      data: users,
+    });
+  } catch (err) {
+    console.error(err);
+    return res
+      .status(200)
+      .json({ status: false, msg: "Error while fetching users." });
+  }
+};
+
 
 module.exports = {
     registerNewUser,
     loginUser,
+    getAllUsers,
 };

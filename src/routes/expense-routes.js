@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const JwtAuthentication = require("../middleware/jwt-auth");
-const {addExpense } = require("../controller/expense-Controller");
+const {addExpense ,getAllUserExpense} = require("../controller/expense-Controller");
 
-router.post("/expense", addExpense);
+router.post("/expense", addExpense)
+router.get("/fetch/expense", getAllUserExpense);
+
 
 module.exports = router;

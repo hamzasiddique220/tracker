@@ -12,7 +12,6 @@ const UserExpense = require("../routes/expense-routes");
 const UserIncome = require("../routes/income-routes");
 const UserSource = require("../routes/source-routes");
 
-
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -44,10 +43,11 @@ app.get('/test',passport.authenticate('jwt',{session: false}),(req,res)=>{
 })
 app.use("/health", (req, res) => res.send("Expense tracker v1"));
 app.use("/be/api/v1", UserRoutes);
+app.use("/be/api/v1/user",passport.authenticate('jwt',{session: false}), UserRoutes);
 app.use("/be/api/v1",passport.authenticate('jwt',{session: false}), UserCategories);
-app.use("/be/api/v1", UserExpense);
-app.use("/be/api/v1", UserIncome);
-app.use("/be/api/v1", UserSource);
+app.use("/be/api/v1",passport.authenticate('jwt',{session: false}), UserExpense);
+app.use("/be/api/v1",passport.authenticate('jwt',{session: false}), UserIncome);
+app.use("/be/api/v1",passport.authenticate('jwt',{session: false}), UserSource);
 
 
 module.exports = {

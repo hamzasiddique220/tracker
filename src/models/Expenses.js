@@ -14,12 +14,10 @@ const Expenses = new mongoose.Schema(
     category: {
       type: String,
     },
-    user: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: Users,
-      },
-    ],
+    userId: {
+      type: String, 
+    },
+
   },
   {
     timestamps: true,
