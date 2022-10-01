@@ -4,6 +4,7 @@ const helmet = require("helmet");
 const session = require('express-session');  // session middleware
 const passport = require('passport');  // authentication
 const { sessionSecret } = require("./variables");
+const bodyParser = require('body-parser')
 
 const UserRoutes = require("../routes/user-routes");
 const UserCategories = require("../routes/categories-routes");
@@ -37,9 +38,13 @@ app.disable("x-powered-by");
 // }));
 
 // health route
+app.use(bodyParser.json())
+app.get('/test',passport.authenticate('jwt',{session: false}),(req,res)=>{
+  res.send('Hello world')
+})
 app.use("/health", (req, res) => res.send("Expense tracker v1"));
 app.use("/be/api/v1", UserRoutes);
-app.use("/be/api/v1", UserCategories);
+app.use("/be/api/v1",passport.authenticate('jwt',{session: false}), UserCategories);
 app.use("/be/api/v1", UserExpense);
 app.use("/be/api/v1", UserIncome);
 app.use("/be/api/v1", UserSource);

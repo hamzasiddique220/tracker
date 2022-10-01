@@ -24,7 +24,7 @@ const UserSchema = new mongoose.Schema(
             default: false,
         },
         phone: {
-            type: Number,
+            type: String,
         },
         country: {
             type: String,
