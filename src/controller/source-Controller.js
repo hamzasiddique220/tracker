@@ -6,7 +6,6 @@ const { jwtSecret, jwtExpirationInterval } = require("../config/variables");
 const addSource = async (req, res) => {
     try {
         const { id } = req.user;
-        console.log("testt",id);
         const { name, description } = req.body;
     
         if (!id) {
@@ -21,13 +20,13 @@ const addSource = async (req, res) => {
     
         return res.status(200).json({
           status: true,
-          msg: "add user description successfully",
+          msg: "add user source successfully",
         });
       } catch (err) {
         console.error(err);
         return res
           .status(200)
-          .json({ status: false, msg: "Error add description categories." });
+          .json({ status: false, msg: "Error add description source." });
       }
 };
 

@@ -5,12 +5,15 @@ const session = require('express-session');  // session middleware
 const passport = require('passport');  // authentication
 const { sessionSecret } = require("./variables");
 const bodyParser = require('body-parser')
+const swaggerUi = require('swagger-ui-express');
+const swaggerJSDoc = require('swagger-jsdoc');
 
 const UserRoutes = require("../routes/user-routes");
 const UserCategories = require("../routes/categories-routes");
 const UserExpense = require("../routes/expense-routes");
 const UserIncome = require("../routes/income-routes");
 const UserSource = require("../routes/source-routes");
+const swaggerDefinition = require('../../swagger.json');
 
 const app = express();
 app.use(express.json());
@@ -24,7 +27,16 @@ app.use(cors());
 
 //  remove X-Powered-By to for security and saving bandwith
 app.disable("x-powered-by");
+const options = {
+  swaggerDefinition,
+ // Paths to files containing OpenAPI definitions
+ apis: ['./routes/*.js'],
+};
 
+const swaggerSpec = swaggerJSDoc(options);
+
+
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // app.use(passport.initialize());
 // app.use(passport.session());
 
